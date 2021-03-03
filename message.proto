@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option go_package = "/generated";
+package strutlog;
+
+enum PrimitiveType {
+    BoolType       = 0;
+    StringType     = 1;
+    IntType        = 2;
+    Int8Type       = 3;
+    Int16Type      = 4;
+    Int32Type      = 5;
+    Int64Type      = 6;
+    UIntType       = 7;
+    UInt8Type      = 8;
+    UInt16Type     = 9;
+    UInt32Type     = 10;
+    UInt64Type     = 11;
+    ByteType       = 12;
+    RuneType       = 13;
+    Float32Type    = 14;
+    Float64Type    = 15;
+    Complex64Type  = 16;
+    Complex128Type = 17;
+    ArrayType      = 18;
+    MapType        = 19;
+    StrutType      = 20;
+}
+
+message Value {
+  PrimitiveType type = 1;
+  oneof value {
+    bool bool_value = 2;
+    string string_value = 3;
+    int32 int32_value = 4;
+    int64 int64_value = 5;
+    uint32 uint32_value = 6;
+    uint64 uint64_value = 7;
+    float float32_value = 8;
+    double float64_value = 9;
+  }
+  repeated Value array_value = 10;
+  map<string, Value> map_value = 11;
+}
+
+message Field {
+  string key = 1;
+  Value value = 2;
+}
+
+message Message {
+  repeated Field fields = 1;
+}
+
